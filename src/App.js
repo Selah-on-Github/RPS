@@ -1,7 +1,9 @@
 import './App.css';
 import {useState} from "react";
 import Box from "./component/Box";
+import rock from './img/rock.png';
 import scissors from './img/scissors.png';
+import paper from './img/paper.png';
 
 
 // 1. 박스 2개 (타이틀, 사진, 결과)
@@ -14,7 +16,7 @@ import scissors from './img/scissors.png';
 const choice = {
   rock : {
     name : "Rock",
-    img : scissors
+    img : rock
   },
   scissors: {
     name : "Scissors",
@@ -22,7 +24,7 @@ const choice = {
   },
   paper : {
     name : "Paper",
-    img : scissors
+    img : paper
   }
 };
 
@@ -30,7 +32,6 @@ function App() {
   const [userSelect,setUserSelect] = useState(null);
 
   const play = (userChoice) => {
-    // userSelect = choice[userChoice] //이렇게 하면 안된다.
     setUserSelect(choice[userChoice])
   };
 
