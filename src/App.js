@@ -30,17 +30,50 @@ const choice = {
 
 function App() {
   const [userSelect,setUserSelect] = useState(null);
+  const [computerSelect,setComputerSelect]=useState(null);
+  const [result,setResult]=useState("")
 
   const play = (userChoice) => {
-    setUserSelect(choice[userChoice])
+    // 유저가 선택한 값
+    setUserSelect(choice[userChoice]);
+
+    // 컴퓨터가 선택한 랜덤값
+    const computerChoice = randomChoice();
+    setComputerSelect(computerChoice);
+
+    //누가 이겼는지 판단해주는 셋팅해주는 함수
+    setResult(judgement(choice[userChoice], computerChoice));
+
+  };
+
+  const judgement = (user,computer) => {
+    // console.log("user",user, "computer", computer);
+    //삼항연산식 (String값을 리턴)
+    if(user.name === computer.name) {
+      return "tie";
+    } else if(user.name === "Rock")
+        return computer.name === "Scissors" ? "win" : "lose";
+    else if (user.name === "Scissors")
+        return computer.name === "Paper" ? "win" : "lose";
+    else if (user.name === "Paper") return computer === "Rock" ? "win" : "lose";
+  };
+
+  const randomChoice=()=>{
+    let itemArray = Object.keys(choice); //객체에 키값만 뽑아서 어레이로 만들어주는 함수다
+    // console.log("item array", itemArray);
+    let randomItem = Math.floor(Math.random()*itemArray.length);
+    // console.log("random value", randomItem);
+    let final = itemArray[randomItem];
+    // console.log("final",final);
+    return choice[final];  
   };
 
 
   return (
     <div>
       <div className='main'>
-        <Box title="You" item={userSelect} />  
-        {/* <Box title="Computer"/>   */}
+        <Box title="You" item={userSelect} result={result} />  
+        <Box title="Computer" item={computerSelect} result={result} />  
       </div>
 
       <div className="main">
